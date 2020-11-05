@@ -1,0 +1,12 @@
+<% unless Spree::Config.google_ad_id.blank? %>
+  <!-- Global site tag (gtag.js) - Google Ads: -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=AW-<%= Spree::Config.google_ad_id %>"></script>
+  <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+          dataLayer.push(arguments);
+      }
+      gtag('js', new Date());
+      gtag('config', 'AW-<%=Spree::Config.google_ad_id %>');
+  </script>
+<% end %>

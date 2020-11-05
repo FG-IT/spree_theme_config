@@ -1,0 +1,7 @@
+<!-- Event snippet for Purchase2 conversion page -->
+<script> gtag('event', 'conversion', {
+    'send_to': 'AW-<%=Spree::Config.google_ad_id %>/<%=Spree::Config.google_ad_conversion_id %>',
+    'value': <%=@order.total %>,
+    'currency': 'USD',
+    'transaction_id': '<%=@order.number %>'
+}); </script>

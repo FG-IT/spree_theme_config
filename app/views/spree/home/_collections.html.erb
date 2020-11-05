@@ -1,0 +1,10 @@
+<% unless Spree::Config.homepage_category_ids.nil? %>
+  <div class="body-spree-fluid container-fluid ">
+    <% homepage_category_ids = Spree::Config.homepage_category_ids.split(',') %>
+    <% homepage_category_ids.each_with_index do |category_id, index| %>
+      <div class="mt-5">
+        <div data-product-carousel data-product-carousel-taxon-id='<%= category_id %>' per-page=6 class="mb-5 cat-<%= index %>"></div>
+      </div>
+    <% end %>
+  </div>
+<% end %>

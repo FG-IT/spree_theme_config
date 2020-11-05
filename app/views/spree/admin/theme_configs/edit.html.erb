@@ -1,0 +1,76 @@
+<% content_for :page_title do %>
+  <%= t('spree_theme_configs.config_name') %>
+<% end %>
+
+<%= form_tag admin_theme_configs_path, method: :put do %>
+  <div id="preferences" data-hook>
+
+    <fieldset class="general no-border-top">
+
+      <div class='row'>
+        <div class='field col-md-6'>
+          <%= label_tag('announcement') %>
+          <%= preference_field_tag('top_announcement', Spree::Config['top_announcement'], type: 'string') %>
+        </div>
+      </div>
+      <div class='row'>
+        <div class='field col-md-6'>
+          <%= label_tag('Main Nav Yaml') %>
+          <%= preference_field_tag('main_nav', Spree::Config['main_nav'], type: :text) %>
+        </div>
+      </div>
+      <div class='row'>
+        <div class='field col-md-6'>
+          <%= label_tag('Homepage category ids') %>
+          <%= preference_field_tag('homepage_category_ids', Spree::Config['homepage_category_ids'], type: 'string') %>
+        </div>
+      </div>
+      <div class='row'>
+        <div class='field col-md-6'>
+          <%= label_tag('Product tabs') %>
+          <%= preference_field_tag('product_tabs', Spree::Config['product_tabs'], type: 'string') %>
+        </div>
+      </div>
+
+      <div class='row'>
+        <div class='field col-md-6'>
+          <%= label_tag('google ad  id') %>
+          <%= preference_field_tag('google_ad_id', Spree::Config['google_ad_id'], type: 'string') %>
+        </div>
+      </div>
+      <div class='row'>
+        <div class='field col-md-6'>
+          <%= label_tag('google ad conversion id') %>
+          <%= preference_field_tag('google_ad_conversion_id', Spree::Config['google_ad_conversion_id'], type: 'string') %>
+        </div>
+      </div>
+
+      <div class='row'>
+        <div class='field col-md-6'>
+          <%= label_tag('Head extra codes') %>
+          <%= preference_field_tag('head_extra_codes', Spree::Config['head_extra_codes'], type: :text) %>
+        </div>
+      </div>
+      <div class='row'>
+        <div class='field col-md-6'>
+          <%= label_tag('Footer extra codes') %>
+          <%= preference_field_tag('footer_extra_codes', Spree::Config['footer_extra_codes'], type: :text) %>
+        </div>
+      </div>
+
+
+      <div class="form-actions" data-hook="buttons">
+        <%= button Spree.t('actions.update'), 'save' %>
+        <span class="or"><%= Spree.t(:or) %></span>
+        <%= button_link_to Spree.t('actions.cancel'), edit_admin_general_settings_url, icon: 'delete' %>
+      </div>
+
+    </fieldset>
+
+  </div>
+
+<% end %>
+
+<script>
+    $('#store_default_currency').select2();
+</script>

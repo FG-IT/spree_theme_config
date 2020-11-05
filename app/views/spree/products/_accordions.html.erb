@@ -1,0 +1,46 @@
+<div class="myaccordion" id="accordionExample">
+  <div class="card">
+    <div class="card-header" id="headingOne">
+      <h2 class="mb-0">
+        <button class="d-flex align-items-center justify-content-between btn btn-link " data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+          Description
+          <span class="fa-stack fa-sm">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fas fa-minus fa-stack-1x fa-inverse"></i>
+                  </span>
+        </button>
+      </h2>
+    </div>
+
+    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+      <div class="card-body">
+        <%= render partial: 'description' %>
+      </div>
+    </div>
+  </div>
+
+  <% unless Spree::Config.product_tabs.nil? %>
+    <% @tabs = JSON.parse(Spree::Config.product_tabs) %>
+    <% @tabs.each_with_index do |tab| %>
+      <div class="card">
+        <div class="card-header" id="heading<%= tab[0].gsub(/[^0-9a-z]/i, '') %>">
+          <h2 class="mb-0">
+            <button class="d-flex align-items-center justify-content-between btn btn-link collapsed" data-toggle="collapse" data-target="#collapse<%= tab[0].gsub(/[^0-9a-z]/i, '') %>" aria-expanded="false" aria-controls="collapse<%= tab[0].gsub(/[^0-9a-z]/i, '') %>">
+              <%= tab[0] %>
+              <span class="fa-stack fa-sm">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fas fa-plus fa-stack-1x fa-inverse"></i>
+                  </span>
+            </button>
+
+          </h2>
+        </div>
+        <div id="collapse<%= tab[0].gsub(/[^0-9a-z]/i, '') %>" class="collapse" aria-labelledby="heading<%= tab[0].gsub(/[^0-9a-z]/i, '') %>" data-parent="#accordionExample">
+          <div class="card-body">
+            <%= render_snippet tab[1] %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+</div>

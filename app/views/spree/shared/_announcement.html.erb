@@ -1,0 +1,9 @@
+<% if Spree::Config.has_preference? :top_announcement %>
+  <% unless Spree::Config.top_announcement.blank? %>
+    <div class="announcement-bar">
+      <p class="announcement-bar__message">
+        <%= raw Spree::Config.top_announcement %>
+      </p>
+    </div>
+  <% end %>
+<% end %>
