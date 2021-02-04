@@ -1,0 +1,22 @@
+<div class="delivery mt-3">
+  <% is_prime = @product.property("is_prime") %>
+  <% if is_prime == 'Yes' %>
+    <script>
+        delivery_days = <%=Spree::Config.expedited_shipping_days.nil??4:Spree::Config.expedited_shipping_days %>
+    </script>
+    <div class="delivery-window mt-2 delivery-fast-shipping">
+      <i class="fas fa-shipping-fast"></i> Free Expedited Shipping<br/>
+      Arrives by <span class='express-to'></span> <br>
+    </div>
+  <% else %>
+    <script>
+        delivery_days = <%=Spree::Config.expedited_shipping_days.nil??8:Spree::Config.expedited_shipping_days %>
+    </script>
+    <div class="delivery-window mt-2">
+      Arrives: <strong><span class='from'></span> - <span class='to'></span></strong> <br>
+    </div>
+  <% end %>
+  <% unless Spree::Config.return_text.nil? %>
+    <%= raw Spree::Config.return_text %>
+  <% end %>
+</div>

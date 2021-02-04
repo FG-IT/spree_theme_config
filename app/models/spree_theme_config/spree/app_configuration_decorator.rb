@@ -10,6 +10,9 @@ module SpreeThemeConfig
         base.preference :footer_extra_codes, :text
         base.preference :product_tabs, :string
         base.preference :top_announcement, :string
+        base.preference :expedited_shipping_days, :string
+        base.preference :standard_shipping_days, :string
+        base.preference :return_text, :string
       end
     end
   end
