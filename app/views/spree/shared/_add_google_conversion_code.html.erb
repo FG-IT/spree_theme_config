@@ -1,12 +1,70 @@
 <% unless Spree::Config.google_ad_id.blank? %>
-  <!-- Global site tag (gtag.js) - Google Ads: -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=AW-<%= Spree::Config.google_ad_id %>"></script>
+  <!-- Google Ads Remarketing Tag  START -->
+  <% fa_google_ads_audience_tag_id = Spree::Config.google_ad_id %>
+  <!-- Global site tag (gtag.js) - Ads. -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=AW-<%= fa_google_ads_audience_tag_id %>"></script>
   <script>
       window.dataLayer = window.dataLayer || [];
+
       function gtag() {
           dataLayer.push(arguments);
       }
+
       gtag('js', new Date());
-      gtag('config', 'AW-<%=Spree::Config.google_ad_id %>');
+      gtag('config', 'AW-<%= fa_google_ads_audience_tag_id %>');
   </script>
+  <!-- Global site tag (gtag.js) - Ads. -->
+  <% fa_product_price = 0 %>
+  <% if @product %>
+    <% fa_product_price = @product.price %>
+  <% elsif @order %>
+    <% fa_product_price = @order.amount %>
+  <% end %>
+  <% if @category %>
+    <% fa_event = 'view_item_list' %>
+  <% elsif @product %>
+    <% fa_event = 'view_item' %>
+  <% elsif controller_name == 'orders' and action_name == 'edit' %>
+    <% fa_event = 'add_to_cart' %>
+  <% elsif controller_name == 'home' %>
+    <% fa_event = 'home' %>
+  <% else %>
+    <% fa_event = 'other' %>
+  <% end %>
+  <script>
+      gtag('event', '<%= fa_event %>', {
+          'send_to': 'AW-<%= fa_google_ads_audience_tag_id %>',
+          <% if fa_product_price >0 %>
+          'value': <%= fa_product_price %>,
+          <% end %>
+          <% if @product %>
+          <% default_variant = default_variant(@variants, @product) %>
+          <% gmc_product_id = @product.property("gmc_product_id") %>
+          'items': [{
+              <% unless gmc_product_id.nil? %>
+              'id': '<%=gmc_product_id %>',
+              <% else %>
+              'id': '<%= default_variant.id %>',
+              <% end %>
+              'google_business_vertical': 'retail'
+          }],
+          <% elsif @order %>
+          'items': [
+              <% @order.line_items.each do |item| %>
+              <% gmc_product_id = item.product.property("gmc_product_id") %>
+              {
+                  <% unless gmc_product_id.nil? %>
+                  'id': '<%=gmc_product_id %>',
+                  <% else %>
+                  'id': '<%= item.variant_id %>',
+                  <% end %>
+                  'google_business_vertical': 'retail'
+              },
+              <% end %>
+          ],
+          <% end %>
+      });
+  </script>
+
+  <!-- Google Ads Remarketing Tag By FeedArmy Version 2.13 END -->
 <% end %>
