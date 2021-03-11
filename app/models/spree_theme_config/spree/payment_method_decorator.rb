@@ -2,11 +2,7 @@ module SpreeThemeConfig
   module Spree
     module PaymentMethodDecorator
       def login
-        unless has_preference :login
-          get_preference :login
-        else
-          ''
-        end
+        get_preference :login
       end
     end
   end
