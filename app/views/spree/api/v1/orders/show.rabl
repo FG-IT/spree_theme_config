@@ -26,9 +26,9 @@ child payments: :payments do
 
   child source: :source do
     if @current_user_roles.include?('admin')
-      attributes *payment_source_attributes + [:gateway_customer_profile_id, :gateway_payment_profile_id]
+      attributes *payment_source_attributes + [:gateway_customer_profile_id, :gateway_payment_profile_id, :transaction_id]
     else
-      attributes *payment_source_attributes
+      attributes *payment_source_attributes + [:transaction_id]
     end
   end
 end
