@@ -22,6 +22,11 @@ child payments: :payments do
 
   child payment_method: :payment_method do
     attributes :id, :name, :login, :description
+    if payment_method.has_preference?:login
+        attributes :id, :name, :login, :description
+    else
+        attributes :id, :name, :description
+    end
   end
 
   child source: :source do
