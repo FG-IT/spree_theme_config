@@ -20,8 +20,7 @@ end
 child payments: :payments do
   attributes *payment_attributes
 
-  child payment_method: :payment_method do
-    attributes :id, :name, :login, :description
+  child payment_method: :payment_method do |payment_method|
     if payment_method.has_preference?:login
         attributes :id, :name, :login, :description
     else
