@@ -22,6 +22,22 @@ module Spree
           end
         end
 
+        def update
+          authorize! :update, @product
+
+          options = { variants_attrs: variants_params, options_attrs: option_types_params }
+          @product = ::Spree::Core::Importer::Product.new(@product, product_params, options).update
+
+          if @product.errors.empty?
+            save_properties
+            save_images
+            save_taxons
+            respond_with(@product.reload, status: 200, default_template: :show)
+          else
+            invalid_resource!(@product)
+          end
+        end
+
         def save_properties
           if params.key? :product_properties
             params[:product_properties].each do |name, value|
