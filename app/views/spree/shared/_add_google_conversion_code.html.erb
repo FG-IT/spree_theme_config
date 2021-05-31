@@ -43,8 +43,10 @@
           'items': [{
               <% unless gmc_product_id.nil? %>
               'id': '<%=gmc_product_id %>',
+              'ecomm_prodid': '<%=gmc_product_id %>',
               <% else %>
               'id': '<%= default_variant.id %>',
+              'ecomm_prodid': '<%= default_variant.id %>',
               <% end %>
               'google_business_vertical': 'retail'
           }],
@@ -55,8 +57,10 @@
               {
                   <% unless gmc_product_id.nil? %>
                   'id': '<%=gmc_product_id %>',
+                  'ecomm_prodid': '<%=gmc_product_id %>',
                   <% else %>
                   'id': '<%= item.variant_id %>',
+                  'ecomm_prodid': '<%= item.variant_id %>',
                   <% end %>
                   'google_business_vertical': 'retail'
               },
