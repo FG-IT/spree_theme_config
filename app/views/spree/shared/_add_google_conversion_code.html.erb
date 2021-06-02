@@ -32,6 +32,7 @@
     <% fa_event = 'other' %>
   <% end %>
   <script>
+
       gtag('event', '<%= fa_event %>', {
           'send_to': 'AW-<%= fa_google_ads_audience_tag_id %>',
           <% if fa_product_price >0 %>
@@ -40,14 +41,13 @@
           <% if @product %>
           <% default_variant = default_variant(@variants, @product) %>
           <% gmc_product_id = @product.property("gmc_product_id") %>
+          <% product_id = gmc_product_id.present?gmc_product_id:default_variant.id  %>
+          'ecomm_pagetype': 'product',
+          'ecomm_prodid': [<%= product_id %>],
+          'ecomm_totalvalue': [<%=product_id %>],
           'items': [{
-              <% unless gmc_product_id.nil? %>
-              'id': '<%=gmc_product_id %>',
-              'ecomm_prodid': '<%=gmc_product_id %>',
-              <% else %>
-              'id': '<%= default_variant.id %>',
-              'ecomm_prodid': '<%= default_variant.id %>',
-              <% end %>
+              'id': '<%=product_id %>',
+              'ecomm_prodid': '<%=product_id %>',
               'google_business_vertical': 'retail'
           }],
           <% elsif @order %>
